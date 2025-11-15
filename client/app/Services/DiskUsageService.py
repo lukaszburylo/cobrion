@@ -11,7 +11,11 @@ class DiskUsageService(BaseService):
     @staticmethod
     def get_data() -> str:
         #return ResponseTemplate().create_response(IpAddressService().get_service_name(), IpAddressService().__get_ip())
-        return ResponseTemplate(DiskUsageService.get_service_name(), DiskUsageService.__get_disk_usage())
+        return ResponseTemplate(
+            service_name=DiskUsageService.get_service_name(), 
+            result_status=True,
+            output_data=DiskUsageService.__get_disk_usage()
+        )
     
     
     @staticmethod
