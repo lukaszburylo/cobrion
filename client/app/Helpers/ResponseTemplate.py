@@ -14,7 +14,7 @@ class ResponseTemplate:
         output_data: Optional[str] = None,
     ):
         cls.response = {
-            "service": service_name,
+            "service_name": service_name,
             "result_status": result_status,
             "input_data": input_data,
             "output_data": output_data,

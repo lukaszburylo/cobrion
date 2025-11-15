@@ -9,7 +9,7 @@ class IpAddressService(BaseService):
         return "ip_address"
 
     @staticmethod
-    def get_data() -> str:
+    def get_data(input_data:str) -> str:
         return ResponseTemplate(
             IpAddressService.get_service_name(), IpAddressService.__get_ip()
         )
