@@ -7,5 +7,5 @@ class BaseService(ABC):
         pass
 
     @abstractmethod
-    def get_data(self) -> str:
+    def get_data(self, input_data: str | None) -> str:
         return ""

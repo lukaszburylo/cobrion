@@ -9,7 +9,7 @@ class MemoryUsageService(BaseService):
         return "memory_usage"
 
     @staticmethod
-    def get_data() -> str:
+    def get_data(input_data: str | None) -> str:
         return ResponseTemplate(
             MemoryUsageService.get_service_name(),
             MemoryUsageService.__get_memory_usage(),

@@ -9,7 +9,7 @@ class DiskUsageService(BaseService):
         return "disk_usage"
 
     @staticmethod
-    def get_data(input_data: str) -> str:
+    def get_data(input_data: str | None) -> str:
         return ResponseTemplate(
             service_name=DiskUsageService.get_service_name(),
             result_status=True,
