@@ -4,7 +4,7 @@ import psutil
 import json
 
 
-class ProcessService(BaseService):
+class DockerService(BaseService):
     @staticmethod
     def get_service_name() -> str:
         return "docker"
