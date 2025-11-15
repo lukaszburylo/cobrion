@@ -1,7 +1,7 @@
 from .BaseService import BaseService
 from Helpers.ResponseTemplate import ResponseTemplate
-import psutil
 import json
+import docker
 
 
 class DockerService(BaseService):
