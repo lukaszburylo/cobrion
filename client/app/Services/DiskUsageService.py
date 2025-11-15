@@ -7,17 +7,15 @@ class DiskUsageService(BaseService):
     @staticmethod
     def get_service_name() -> str:
         return "disk_usage"
-    
+
     @staticmethod
     def get_data() -> str:
-        #return ResponseTemplate().create_response(IpAddressService().get_service_name(), IpAddressService().__get_ip())
         return ResponseTemplate(
-            service_name=DiskUsageService.get_service_name(), 
+            service_name=DiskUsageService.get_service_name(),
             result_status=True,
-            output_data=DiskUsageService.__get_disk_usage()
+            output_data=DiskUsageService.__get_disk_usage(),
         )
-    
-    
+
     @staticmethod
     def __get_disk_usage() -> str:
         total, used, free = shutil.disk_usage("/")

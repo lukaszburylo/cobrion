@@ -7,13 +7,14 @@ class MemoryUsageService(BaseService):
     @staticmethod
     def get_service_name() -> str:
         return "memory_usage"
-    
+
     @staticmethod
     def get_data() -> str:
-        #return ResponseTemplate().create_response(IpAddressService().get_service_name(), IpAddressService().__get_ip())
-        return ResponseTemplate(MemoryUsageService.get_service_name(), MemoryUsageService.__get_memory_usage())
-    
-    
+        return ResponseTemplate(
+            MemoryUsageService.get_service_name(),
+            MemoryUsageService.__get_memory_usage(),
+        )
+
     @staticmethod
     def __get_memory_usage() -> str:
         memory = psutil.virtual_memory()

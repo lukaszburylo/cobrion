@@ -7,17 +7,17 @@ class IpAddressService(BaseService):
     @staticmethod
     def get_service_name() -> str:
         return "ip_address"
-    
+
     @staticmethod
     def get_data() -> str:
-        #return ResponseTemplate().create_response(IpAddressService().get_service_name(), IpAddressService().__get_ip())
-        return ResponseTemplate(IpAddressService.get_service_name(), IpAddressService.__get_ip())
-    
-    
+        return ResponseTemplate(
+            IpAddressService.get_service_name(), IpAddressService.__get_ip()
+        )
+
     @staticmethod
     def __get_ip() -> str:
         try:
-        # Use a UDP socket to obtain the outbound IP without sending data.
+            # Use a UDP socket to obtain the outbound IP without sending data.
             with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
                 # The address doesn't need to be reachable; no packets are sent.
                 s.connect(("8.8.8.8", 80))
