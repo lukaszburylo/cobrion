@@ -24,4 +24,4 @@ class DiskUsageService(BaseService):
         response["used"] = used // (2**30)
         response["free"] = free // (2**30)
         response["unit"] = "GB"
-        return str(response)
+        return response

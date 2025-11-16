@@ -1,5 +1,5 @@
 import Services
-
+import requests
 
 if __name__ == "__main__":
     _r = dict()
@@ -19,11 +19,23 @@ if __name__ == "__main__":
 
     response = []
 
-    for service in _r.get("Services", []):
+    url = "http://127.0.0.1:8080/get-tasks"  # your Flask server address
+
+    payload = {
+        "host_id": "foo",
+        "api_key": "bar"
+    }
+
+    response = requests.get(url, json=payload)
+
+    print("Status code:", response.status_code)
+    print("Response JSON:", response.json())
+    myjson = response.json()
+    for service in myjson.get("Services", []):
         svc_name = service.get("service_name")
         svc_cls = Services.SERVICES.get(svc_name)
         if svc_cls:
-            input_data = service.get("input_data", None)
+            input_data = service.get("input_data", {})
             print(str(svc_cls.get_data(input_data)))
         else:
             print(f"Service '{svc_name}' not found")

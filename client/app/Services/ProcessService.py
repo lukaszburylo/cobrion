@@ -15,13 +15,13 @@ class ProcessService(BaseService):
         return ResponseTemplate(
             service_name=ProcessService.get_service_name(),
             result_status=result,
-            input_data=json.loads(input),
+            input_data=input,
             output_data=data,
         )
 
     @staticmethod
     def __get_processes(input) -> str:
-        input = json.loads(input)
+        #input = json.loads(input)
         for proc in psutil.process_iter(["pid", "name"]):
             try:
                 if proc.info["name"] == input.get("process_name"):

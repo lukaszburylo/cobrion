@@ -15,7 +15,7 @@ class ResponseTemplate:
     ):
         cls.response = {
             "service_name": service_name,
-            "result_status": result_status,
+            "result_status": "Success" if result_status else "Error",
             "input_data": input_data,
             "output_data": output_data,
         }
