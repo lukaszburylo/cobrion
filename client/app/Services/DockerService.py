@@ -15,16 +15,15 @@ class DockerService(BaseService):
         return ResponseTemplate(
             service_name=DockerService.get_service_name(),
             result_status=result,
-            input_data=json.loads(input),
+            input_data=input,
             output_data=data,
         )
 
     @staticmethod
     def __get_container(input) -> str:
-        input = json.loads(input)
         container_name = input.get("container_name")
-        client = docker.from_env()
         try:
+            client = docker.from_env()
             container = client.containers.get(container_name)
             if container.status == "running":
                 print(f"Container '{container_name}' is running.")
@@ -33,3 +32,5 @@ class DockerService(BaseService):
                 return False, f"Container '{container_name}' is NOT running. Status: {container.status}"
         except docker.errors.NotFound:
             return False, f"Container '{container_name}' does not exist."
+        except docker.errors.DockerException:
+            return False, f"Docker service does not exist."

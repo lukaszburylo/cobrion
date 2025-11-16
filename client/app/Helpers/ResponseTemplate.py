@@ -23,3 +23,7 @@ class ResponseTemplate:
     @classmethod
     def __str__(cls) -> str:
         return json.dumps(cls.response)
+
+    @classmethod
+    def get_response(cls):
+        return cls.response

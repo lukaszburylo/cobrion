@@ -10,8 +10,10 @@ def home():
 
 @app.route("/get-tasks", methods=["GET"])
 def get_tasks():
-    host_id = request.args.get("host_id")
-    api_key = request.args.get("api_key")
+    params = request.get_json()
+    host_id = params.get("host_id")
+    api_key = params.get("api_key")
+
     _r = dict()
     _r["Services"] = []
 
@@ -30,8 +32,16 @@ def get_tasks():
     _r["Services"].append(_s2)
     _r["Services"].append(_s3)
     _r["Services"].append(_s4)
-
     return jsonify(_r)
+
+@app.route("/results", methods=["POST"])
+def results():
+    params = request.get_json()
+    host_id = params.get("host_id")
+    api_key = params.get("api_key")
+    data = params.get("data")
+    print(data)
+    return jsonify({})
 
 
 if __name__ == "__main__":
