@@ -2,6 +2,10 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
+class Service:
+    def __init__(self, service_name, parameters: dict = None):
+        self.service_name = service_name
+        self.parameters = parameters
 
 @app.route("/")
 def home():
@@ -15,23 +19,16 @@ def get_tasks():
     api_key = params.get("api_key")
 
     _r = dict()
-    _r["Services"] = []
-
-    _s1, _s2, _s3, _s4 = dict(), dict(), dict(), dict()
-    _s1["service_name"] = "disk_usage"
-
-    _s2["service_name"] = "ip_address"
-
-    _s3["service_name"] = "process"
-    _s3["input_data"] = {"process_name": "python.exe"}
-
-    _s4["service_name"] = "docker"
-    _s4["input_data"] = {"container_name": "sth"}
-
-    _r["Services"].append(_s1)
-    _r["Services"].append(_s2)
-    _r["Services"].append(_s3)
-    _r["Services"].append(_s4)
+    services = [
+        Service("disk_usage"),
+        Service("ip_address"),
+        Service("process", {"process_name": "python.exe"}),
+        Service("docker", {"container_name": "sth"}),
+        Service("fake")
+    ]
+    _r['Services'] = [s.__dict__ for s in services]
+    _r["HOST_ID"] = host_id
+    _r["API_KEY"] = api_key
     return jsonify(_r)
 
 @app.route("/results", methods=["POST"])

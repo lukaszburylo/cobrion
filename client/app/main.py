@@ -1,6 +1,13 @@
 import Services
 import requests
 import json
+from typing import Optional, Dict, List, Any
+from pydantic import BaseModel, field_validator, ValidationError
+
+from pydantic import BaseModel, Field
+from typing import List, Optional, Dict, Any
+from datetime import datetime
+
 
 if __name__ == "__main__":
     url = "http://127.0.0.1:8080/get-tasks"  # your Flask server address
@@ -13,19 +20,18 @@ if __name__ == "__main__":
 
     print("Status code:", response.status_code)
     print("Response JSON:", response.json())
-    myjson = response.json()
-
+    _data = Config(**response.json())
     _return = []
 
-    for service in myjson.get("Services", []):
-        svc_name = service.get("service_name")
-        svc_cls = Services.SERVICES.get(svc_name)
+    for service in _data.Services:
+        service_name = service.service_name
+        service_parameters = service.parameters
+
+        svc_cls = Services.SERVICES.get(service_name)
         if svc_cls:
-            input_data = service.get("input_data", {})
-            #print(str(svc_cls.get_data(input_data)))
-            _return.append(svc_cls.get_data(input_data).get_response())
+            _return.append(svc_cls.get_data(service_parameters).get_response())
         else:
-            print(f"Service '{svc_name}' not found")
+            print(f"Service '{service_name}' not found")
 
     url = "http://127.0.0.1:8080/results"  # your Flask server address
 
